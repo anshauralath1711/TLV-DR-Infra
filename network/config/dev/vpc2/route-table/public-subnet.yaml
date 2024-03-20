@@ -1,0 +1,9 @@
+template_path: vpc/route-table.yaml
+parameters:
+  Environment: {{ stack_group_config.Environment }}
+  RouteTableName: 'CNet-WebApps-RTB'
+  VpcId: !stack_output {{ stack_group_config.Environment }}/vpc/vpc.yaml::Id
+stack_tags:
+  "Environment": {{ stack_group_config.Environment }}
+  "CreatedBy": {{ stack_group_config.CreatedBy }}
+  "Application": {{ stack_group_config.Application }}

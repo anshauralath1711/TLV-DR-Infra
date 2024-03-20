@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: Create an application load balancer listener
+
+Parameters:
+  LoadBalancerArn:
+    Type: String
+  Port:
+    Type: String
+  Protocol:
+    Type: String
+  TargetGroupArn:
+    Type: String
+
+Resources:
+    LoadBalancerListener:
+            Type: AWS::ElasticLoadBalancingV2::Listener
+            Properties:
+                LoadBalancerArn: !Ref LoadBalancerArn
+                Port: !Ref Port
+                Protocol: !Ref Protocol
+                DefaultActions: 
+                    - Type: forward
+                      TargetGroupArn: !Ref TargetGroupArn
+    
+# Outputs:
+#   Arn:
+#     Value: !Ref Listener
+           

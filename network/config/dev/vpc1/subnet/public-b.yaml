@@ -1,0 +1,13 @@
+template_path: vpc/subnet.yaml
+parameters:
+  Environment: {{ stack_group_config.Environment }}
+  SubnetName: 'TLS-ALB-10.12.12.0-PUB'
+  CidrBlock: 10.12.12.0/24
+  AvailabilityZone: {{ stack_group_config.AvailabilityZoneB }}
+  VpcId: !stack_output {{ stack_group_config.Environment }}/vpc/vpc.yaml::Id
+  RouteTableId: !stack_output {{ stack_group_config.Environment }}/vpc/route-table/public-subnet-b.yaml::Id
+  MapPublicIpOnLaunch: "true"
+stack_tags:
+  "Environment": {{ stack_group_config.Environment }}
+  "CreatedBy": {{ stack_group_config.CreatedBy }}
+  "Application": {{ stack_group_config.Application }}

@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: Create an application load balancer
+
+Parameters:
+  Environment:
+    Type: String
+  LoadBalancerName:
+    Type: String
+  Scheme:
+    Type: String
+    AllowedValues: ['internal', 'internet-facing']
+  SecurityGroupId:
+    Type: String
+  SubnetAId:
+    Type: String
+  SubnetBId:
+    Type: String
+  LoadBalancerType:
+    Type: String
+    AllowedValues: ['application']
+    Default: 'application'
+
+Resources:
+
+    LoadBalancer:
+        Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+        Properties:
+            Name: !Join ['-', [!Ref LoadBalancerName, !Ref Environment]]
+            Scheme: !Ref Scheme
+            Subnets:
+                - !Ref SubnetAId
+                - !Ref SubnetBId
+            SecurityGroups: 
+                - !Ref SecurityGroupId
+           
+
+   
+Outputs:
+
+  Arn:
+    Value: !Ref LoadBalancer
+  Dns:
+    Value: !GetAtt LoadBalancer.DNSName
+  Name: 
+    Value: !GetAtt LoadBalancer.LoadBalancerName
+  HostedZoneId: 
+    Value: !GetAtt LoadBalancer.CanonicalHostedZoneID

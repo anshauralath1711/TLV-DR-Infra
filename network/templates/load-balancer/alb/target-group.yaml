@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: Create an application load balancer target group
+
+Parameters:
+  Environment:
+    Type: String
+  HealthCheckIntervalSeconds:
+    Type: String
+    Default: 20
+  HealthCheckPath:
+    Type: String
+  HealthCheckProtocol:
+    Type: String
+  Protocol:
+    Type: String
+  HealthCheckTimeoutSeconds: 
+    Type: String
+    Default: 10
+  HealthyThresholdCount:
+    Type: String
+    Default: 5
+  TargetGroupName:
+    Type: String
+  Port:
+    Type: String
+  TargetType:
+    Type: String
+    Default: 'ip'
+  UnhealthyThresholdCount:
+    Type: String
+    Default: 5
+  VpcId:
+    Type: String
+
+Resources: 
+    TargetGroup:
+            Type: AWS::ElasticLoadBalancingV2::TargetGroup
+            Properties:
+                Name: !Join ['-', [!Ref TargetGroupName, !Ref Environment]]
+                VpcId: !Ref VpcId
+                Port: !Ref Port
+                Protocol: !Ref Protocol
+                TargetType: !Ref TargetType
+                HealthCheckIntervalSeconds: !Ref HealthCheckIntervalSeconds
+                HealthCheckPath: !Ref HealthCheckPath
+                HealthCheckProtocol: !Ref HealthCheckProtocol
+                HealthCheckTimeoutSeconds: !Ref HealthCheckTimeoutSeconds
+                HealthyThresholdCount: !Ref HealthyThresholdCount
+                UnhealthyThresholdCount: !Ref UnhealthyThresholdCount
+
+Outputs:
+  Arn: 
+    Value: !Ref TargetGroup
+  Name: 
+    Value: !GetAtt TargetGroup.TargetGroupName

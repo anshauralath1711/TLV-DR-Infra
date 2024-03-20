@@ -1,0 +1,13 @@
+template_path: vpc/subnet.yaml
+parameters:
+  Environment: {{ stack_group_config.Environment }}
+  SubnetName: 'CNet-PUB-10.12.14.0'
+  CidrBlock: 10.12.14.0/24
+  AvailabilityZone: {{ stack_group_config.AvailabilityZoneA }}
+  VpcId: !stack_output {{ stack_group_config.Environment }}/vpc/vpc.yaml::Id
+  MapPublicIpOnLaunch: "true"
+  RouteTableId: !stack_output {{ stack_group_config.Environment }}/vpc/route-table/public-subnet.yaml::Id
+stack_tags:
+  "Environment": {{ stack_group_config.Environment }}
+  "CreatedBy": {{ stack_group_config.CreatedBy }}
+  "Application": {{ stack_group_config.Application }}

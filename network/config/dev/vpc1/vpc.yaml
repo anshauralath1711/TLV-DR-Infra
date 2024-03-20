@@ -1,0 +1,9 @@
+template_path: vpc/vpc.yaml
+parameters:
+  Environment: {{ stack_group_config.Environment }}
+  VpcName: 'TLVWebApps'
+  CidrBlock: 10.12.0.0/16
+stack_tags:
+  "Environment": {{ stack_group_config.Environment }}
+  "CreatedBy": {{ stack_group_config.CreatedBy }}
+  "Application": {{ stack_group_config.Application }}

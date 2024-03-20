@@ -1,0 +1,8 @@
+project_code: network-infra
+region: ap-northeast-3
+AvailabilityZoneA: ap-northeast-3a
+AvailabilityZoneB: ap-northeast-3b
+AvailabilityZoneC: ap-northeast-3c
+AvailabilityZoneD: ap-northeast-3d
+CreatedBy: BizCloudExperts
+Application: TLV-AWSDR

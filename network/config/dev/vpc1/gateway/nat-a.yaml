@@ -1,0 +1,9 @@
+template_path: vpc/nat-gateway.yaml
+parameters:
+  Environment: {{ stack_group_config.Environment }}
+  NatGatewayName: 'GNet_NAT'
+  PublicSubnetId: !stack_output {{ stack_group_config.Environment }}/vpc/subnet/public-a.yaml::Id
+stack_tags:
+  "Environment": {{ stack_group_config.Environment }}
+  "CreatedBy": {{ stack_group_config.CreatedBy }}
+  "Application": {{ stack_group_config.Application }}
